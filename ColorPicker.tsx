@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Modal,
-  TouchableHighlight,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, Modal, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Color } from "./models/color";
 
 type ColorPickerProps = {
@@ -31,7 +25,7 @@ export default function ColorPicker({
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             {options.map((color) => (
-              <TouchableHighlight
+              <TouchableOpacity
                 key={color.id}
                 onPress={() => {
                   onChange(color);
@@ -44,12 +38,12 @@ export default function ColorPicker({
                 }}
               >
                 <Text />
-              </TouchableHighlight>
+              </TouchableOpacity>
             ))}
           </View>
         </View>
       </Modal>
-      <TouchableHighlight
+      <TouchableOpacity
         style={{
           ...styles.openButton,
           backgroundColor: selected.value,
@@ -58,8 +52,8 @@ export default function ColorPicker({
           setColorModalVisible(true);
         }}
       >
-        <Text></Text>
-      </TouchableHighlight>
+        <Text />
+      </TouchableOpacity>
     </View>
   );
 }

@@ -1,4 +1,3 @@
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 
 import React, { useState, useContext, useEffect } from "react";

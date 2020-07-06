@@ -1,4 +1,3 @@
-import EditScreenInfo from "../components/EditScreenInfo";
 import { Text, View } from "../components/Themed";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -17,7 +16,6 @@ import { PlayerContext } from "../context/player";
 import { SettingsContext } from "../context/settings";
 import { ScrollView, Switch } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
-import { Icon } from "react-native-elements";
 
 export default function SettingsTab() {
   const { players, setPlayers, storePlayers } = useContext(PlayerContext);

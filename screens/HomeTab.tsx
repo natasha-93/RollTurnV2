@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
   },
   die: {
     margin: 20,
+    borderRadius: 10,
   },
   detailsContainer: {
     flex: 1,

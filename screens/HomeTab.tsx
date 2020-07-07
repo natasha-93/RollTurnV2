@@ -92,8 +92,8 @@ export default function HomeTab() {
                   value={die}
                   style={{
                     ...styles.die,
-                    width: 100 - dice.length * 7,
-                    height: 100 - dice.length * 7,
+                    width: 100 - dice.length * 8,
+                    height: 100 - dice.length * 8,
                   }}
                 />
               ))}
@@ -112,7 +112,11 @@ export default function HomeTab() {
                       setDice((dice) => dice.map(() => rollDie()));
                     }}
                   >
-                    <Ionicons name="md-refresh" size={30} />
+                    <Ionicons
+                      name="md-refresh"
+                      size={30}
+                      style={{ padding: 20, paddingLeft: 80, paddingRight: 80 }}
+                    />
                   </TouchableOpacity>
                 </>
               )}
@@ -134,11 +138,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "transparent",
   },
-  rollBtn: {
-    padding: 10,
-    alignItems: "center",
-    backgroundColor: "transparent",
-  },
+  // rollBtn: {
+  //   padding: 10,
+  //   alignItems: "center",
+  //   backgroundColor: "transparent",
+  // },
   dieNumberBtn: {
     padding: 40,
     marginLeft: 15,
@@ -174,6 +178,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   playerTurn: {
-    fontSize: 40,
+    fontSize: 30,
   },
 });

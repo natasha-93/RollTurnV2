@@ -58,10 +58,6 @@ export default function HomeTab() {
             contentContainerStyle={{ minHeight: "100%" }}
             style={{ flex: 1 }}
           >
-            {/* <View style={styles.rollBtn}>
-              <Text style={styles.btnText}>Roll Dice</Text>
-            </View> */}
-
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 style={{

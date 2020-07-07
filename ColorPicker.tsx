@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Modal, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Color } from "./models/color";
+import { TouchableHighlight } from "react-native-gesture-handler";
 
 type ColorPickerProps = {
   selected: Color;
@@ -29,17 +30,28 @@ export default function ColorPicker({
                 key={color.id}
                 onPress={() => {
                   onChange(color);
-
-                  setColorModalVisible(!colorModalVisible);
                 }}
                 style={{
                   ...styles.openButton,
                   backgroundColor: color.value,
+                  margin: 20,
+                  width: selected.id === color.id ? 50 : 40,
+                  height: selected.id === color.id ? 50 : 40,
                 }}
               >
                 <Text />
               </TouchableOpacity>
             ))}
+            <View style={{ width: "100%", alignItems: "center" }}>
+              <TouchableOpacity
+                style={{ padding: 20 }}
+                onPress={() => {
+                  setColorModalVisible(false);
+                }}
+              >
+                <Text style={{ fontSize: 20 }}>OK</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Modal>
@@ -66,7 +78,9 @@ const styles = StyleSheet.create({
   },
   modalView: {
     marginTop: 50,
+    margin: 20,
     flexDirection: "row",
+    flexWrap: "wrap",
     backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
@@ -79,6 +93,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+    justifyContent: "space-evenly",
   },
   openButton: {
     borderRadius: 80,

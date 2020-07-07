@@ -7,7 +7,7 @@ import {
   StyleSheet,
   TextInput,
   SafeAreaView,
-  Alert,
+  Platform,
 } from "react-native";
 
 import DraggableFlatList from "react-native-draggable-flatlist";
@@ -41,6 +41,7 @@ export default function SettingsTab() {
   }
 
   function addPlayer() {
+    if (newPlayer.name === "") return;
     const newPlayers = [...players, newPlayer];
     setPlayers(newPlayers);
     setNewPlayer({
@@ -63,102 +64,112 @@ export default function SettingsTab() {
         colors={["#a8edea", "white"]}
         style={styles.linearGradient}
       >
-        {/* <ScrollView
-          style={{ flex: 1 }}
+        <ScrollView
+          style={{ flex: 1, marginTop: 20 }}
           contentInsetAdjustmentBehavior="automatic"
-        > */}
-        <View style={styles.playerInputs}>
-          <TextInput
-            placeholder="Add player..."
-            style={styles.input}
-            value={newPlayer.name}
-            onChangeText={(name) => setNewPlayer({ ...newPlayer, name })}
-            onSubmitEditing={() => {
-              addPlayer();
-            }}
-          />
-          <ColorPicker
-            selected={newPlayer.color}
-            onChange={(color) => {
-              setNewPlayer((newPlayer) => ({
-                ...newPlayer,
-                color,
-              }));
-            }}
-            options={colors}
-          />
-        </View>
-        <View style={{ backgroundColor: "transparent" }}>
-          <DraggableFlatList
-            data={players}
-            renderItem={({ item: player, index, drag }) => (
-              <View key={index} style={styles.playerInputs}>
-                <TouchableOpacity onPressIn={drag} style={{ padding: 10 }}>
-                  <Ionicons name="md-menu" size={30} />
-                </TouchableOpacity>
+        >
+          <View style={styles.playerInputs}>
+            <TextInput
+              placeholder="Add player..."
+              style={{ ...styles.input, flex: 1 }}
+              value={newPlayer.name}
+              onChangeText={(name) => setNewPlayer({ ...newPlayer, name })}
+              onSubmitEditing={() => {
+                addPlayer();
+              }}
+            />
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                opacity: newPlayer.name.length > 0 ? 1 : 0.5,
+              }}
+              disabled={newPlayer.name.length < 1}
+              onPress={() => {
+                addPlayer();
+              }}
+            >
+              <Ionicons name="md-add" size={30} />
+            </TouchableOpacity>
+          </View>
+          <View style={{ backgroundColor: "transparent" }}>
+            <DraggableFlatList
+              data={players}
+              renderItem={({ item: player, index, drag }) => (
+                <View key={index} style={styles.playerInputs}>
+                  <TouchableOpacity onPressIn={drag} style={{ padding: 10 }}>
+                    <Ionicons name="md-menu" size={30} />
+                  </TouchableOpacity>
 
-                <TextInput
-                  style={styles.input}
-                  value={player.name}
-                  onChangeText={(name) =>
-                    setPlayers((players) =>
-                      players.map((player, i) => {
-                        if (index !== i) return player;
+                  <TextInput
+                    style={styles.input}
+                    value={player.name}
+                    onChangeText={(name) =>
+                      setPlayers((players) =>
+                        players.map((player, i) => {
+                          if (index !== i) return player;
 
-                        return {
-                          ...player,
-                          name,
-                        };
-                      })
-                    )
-                  }
-                  onSubmitEditing={() => {
-                    addPlayer();
-                  }}
-                />
-                <TouchableOpacity
-                  style={{ padding: 10 }}
-                  onPress={() => {
-                    setPlayers((players) =>
-                      players.filter((player, i) => index !== i)
-                    );
-                  }}
-                >
-                  <Ionicons name="md-trash" size={30} />
-                </TouchableOpacity>
-                <ColorPicker
-                  selected={player.color}
-                  onChange={(color) => {
-                    setPlayers((players) =>
-                      players.map((player, i) => {
-                        if (index !== i) return player;
+                          return {
+                            ...player,
+                            name,
+                          };
+                        })
+                      )
+                    }
+                    onSubmitEditing={() => {
+                      addPlayer();
+                    }}
+                  />
+                  <TouchableOpacity
+                    style={{ padding: 10 }}
+                    onPress={() => {
+                      setPlayers((players) =>
+                        players.filter((player, i) => index !== i)
+                      );
+                    }}
+                  >
+                    <Ionicons name="md-trash" size={30} />
+                  </TouchableOpacity>
+                  <ColorPicker
+                    selected={player.color}
+                    onChange={(color) => {
+                      setPlayers((players) =>
+                        players.map((player, i) => {
+                          if (index !== i) return player;
 
-                        return {
-                          ...player,
-                          color,
-                        };
-                      })
-                    );
-                  }}
-                  options={colors}
-                />
-              </View>
-            )}
-            keyExtractor={(item, index) => `draggable-item-${item.name}`}
-            onDragEnd={({ data }) => setPlayers(data)}
-          />
-        </View>
-        <View style={styles.switchContainer}>
-          <Switch
-            trackColor={{ false: "#767577", true: "lightgrey" }}
-            thumbColor={settings.soundEnabled ? "green" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={settings.soundEnabled}
-          />
-          <Text>{settings.soundEnabled ? "SOUND ON" : "SOUND OFF"}</Text>
-        </View>
-        {/* </ScrollView> */}
+                          return {
+                            ...player,
+                            color,
+                          };
+                        })
+                      );
+                    }}
+                    options={colors}
+                  />
+                </View>
+              )}
+              keyExtractor={(item, index) => `draggable-item-${item.name}`}
+              onDragEnd={({ data }) => setPlayers(data)}
+            />
+          </View>
+          <View style={styles.switchContainer}>
+            <Switch
+              trackColor={{ false: "#767577", true: "lightgrey" }}
+              thumbColor={settings.soundEnabled ? "green" : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              onValueChange={toggleSwitch}
+              value={settings.soundEnabled}
+              style={{
+                transform:
+                  Platform.OS === "android"
+                    ? [{ scaleX: 1.5 }, { scaleY: 1.5 }]
+                    : [{ scaleX: 1 }, { scaleY: 1 }],
+              }}
+            />
+            <Text style={{ marginTop: 10, fontSize: 18 }}>
+              {settings.soundEnabled ? "SOUND ON" : "SOUND OFF"}
+            </Text>
+          </View>
+        </ScrollView>
       </LinearGradient>
     </SafeAreaView>
   );
@@ -192,7 +203,7 @@ const styles = StyleSheet.create({
   },
   switchContainer: {
     alignItems: "center",
-    padding: 20,
+    padding: 50,
     backgroundColor: "transparent",
   },
 });

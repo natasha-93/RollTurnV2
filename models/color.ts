@@ -1,11 +1,13 @@
 export type ColorId =
-  | 'ORANGE'
-  | 'YELLOW'
-  | 'BLUE'
-  | 'RED'
-  | 'GREEN'
-  | 'BLACK'
-  | 'WHITE';
+  | "ORANGE"
+  | "YELLOW"
+  | "BLUE"
+  | "RED"
+  | "GREEN"
+  | "BLACK"
+  | "WHITE"
+  | "PINK"
+  | "PURPLE";
 
 export type Color = {
   id: ColorId;
@@ -14,31 +16,39 @@ export type Color = {
 
 export const colors: Color[] = [
   {
-    id: 'ORANGE',
-    value: '#FFA500',
+    id: "ORANGE",
+    value: "#FFA500",
   },
   {
-    id: 'YELLOW',
-    value: '#F3F925',
+    id: "YELLOW",
+    value: "#FFFF66",
   },
   {
-    id: 'BLUE',
-    value: '#2128fc',
+    id: "BLUE",
+    value: "#2128fc",
   },
   {
-    id: 'RED',
-    value: '#F92525',
+    id: "RED",
+    value: "#F92525",
   },
   {
-    id: 'GREEN',
-    value: '#1ba303',
+    id: "GREEN",
+    value: "#1ba303",
   },
   {
-    id: 'BLACK',
-    value: '#666',
+    id: "PINK",
+    value: "#FFB6C1",
   },
   {
-    id: 'WHITE',
-    value: '#eee',
+    id: "PURPLE",
+    value: "#800080",
+  },
+  {
+    id: "BLACK",
+    value: "#666",
+  },
+  {
+    id: "WHITE",
+    value: "#eee",
   },
 ];

@@ -35,14 +35,18 @@ export default function SettingsTab() {
     color: colors[0],
   });
 
+  const canAddPlayer = newPlayer.name.length > 0 && players.length < 5;
+
   function getNextColor(players: Player[]) {
     const colorIndex = players.length % colors.length;
     return colors[colorIndex];
   }
 
   function addPlayer() {
-    if (newPlayer.name === "") return;
+    if (!canAddPlayer) return;
+
     const newPlayers = [...players, newPlayer];
+
     setPlayers(newPlayers);
     setNewPlayer({
       name: "",
@@ -81,9 +85,9 @@ export default function SettingsTab() {
             <TouchableOpacity
               style={{
                 padding: 10,
-                opacity: newPlayer.name.length > 0 ? 1 : 0.5,
+                opacity: canAddPlayer ? 1 : 0.5,
               }}
-              disabled={newPlayer.name.length < 1}
+              disabled={!canAddPlayer}
               onPress={() => {
                 addPlayer();
               }}
@@ -93,7 +97,9 @@ export default function SettingsTab() {
           </View>
           <View style={{ backgroundColor: "transparent" }}>
             <DraggableFlatList
+              style={{ minWidth: "100%" }}
               data={players}
+              // scrollingContainerOffset={scrollOffset}
               renderItem={({ item: player, index, drag }) => (
                 <View key={index} style={styles.playerInputs}>
                   <TouchableOpacity onPressIn={drag} style={{ padding: 10 }}>
@@ -186,6 +192,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     margin: 20,
     backgroundColor: "transparent",
+    flex: 1,
   },
   input: {
     fontSize: 30,
@@ -196,6 +203,7 @@ const styles = StyleSheet.create({
     padding: 5,
     marginRight: 5,
     marginLeft: 5,
+    flex: 1,
   },
   deleteButton: {
     fontSize: 30,

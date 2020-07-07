@@ -2,6 +2,6 @@
 ✔️ get rid of top banner
 ✔️ Draggable player order
 ✔️ Add an ok button to modal and padding between colors
-
-* Fix scrolling issue on settings screen
+✔️ Fix scrolling issue on settings screen
 * Add app icon
+* Add uuid for unique player ids

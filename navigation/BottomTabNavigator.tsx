@@ -53,12 +53,8 @@ const TabOneStack = createStackNavigator<TabOneParamList>();
 
 function TabOneNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="Home"
-        component={HomeTab}
-        options={{ headerTitle: "Roll Dice" }}
-      />
+    <TabOneStack.Navigator headerMode="none">
+      <TabOneStack.Screen name="Home" component={HomeTab} />
     </TabOneStack.Navigator>
   );
 }
@@ -67,12 +63,8 @@ const TabTwoStack = createStackNavigator<TabTwoParamList>();
 
 function TabTwoNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="Settings"
-        component={SettingsTab}
-        options={{ headerTitle: "Settings" }}
-      />
+    <TabTwoStack.Navigator headerMode="none">
+      <TabTwoStack.Screen name="Settings" component={SettingsTab} />
     </TabTwoStack.Navigator>
   );
 }

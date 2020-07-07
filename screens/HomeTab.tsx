@@ -35,13 +35,13 @@ export default function HomeTab() {
     }
   }, [dice]);
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.flex}>
       <LinearGradient
         colors={[players[turnIndex]?.color.value ?? "#a8edea", "white"]}
         style={styles.linearGradient}
       >
         <TouchableOpacity
-          style={{ flex: 1, minWidth: "100%" }}
+          style={styles.screen}
           onPress={() => {
             setDice((dice) => dice.map(() => rollDie()));
             setTurnIndex((turnIndex) => {
@@ -56,7 +56,7 @@ export default function HomeTab() {
           <ScrollView
             contentInsetAdjustmentBehavior="automatic"
             contentContainerStyle={{ minHeight: "100%" }}
-            style={{ flex: 1 }}
+            style={styles.flex}
           >
             <View style={styles.buttonContainer}>
               <TouchableOpacity
@@ -103,16 +103,11 @@ export default function HomeTab() {
                   </Text>
 
                   <TouchableOpacity
-                    style={{ padding: 20 }}
                     onPress={() => {
                       setDice((dice) => dice.map(() => rollDie()));
                     }}
                   >
-                    <Ionicons
-                      name="md-refresh"
-                      size={30}
-                      style={{ padding: 20, paddingLeft: 80, paddingRight: 80 }}
-                    />
+                    <Ionicons name="md-refresh" size={30} style={styles.icon} />
                   </TouchableOpacity>
                 </>
               )}
@@ -125,20 +120,22 @@ export default function HomeTab() {
 }
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   linearGradient: {
     flex: 1,
     alignItems: "center",
+  },
+  screen: {
+    flex: 1,
+    minWidth: "100%",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     backgroundColor: "transparent",
   },
-  // rollBtn: {
-  //   padding: 10,
-  //   alignItems: "center",
-  //   backgroundColor: "transparent",
-  // },
   dieNumberBtn: {
     padding: 40,
     marginLeft: 15,
@@ -175,5 +172,11 @@ const styles = StyleSheet.create({
   },
   playerTurn: {
     fontSize: 30,
+  },
+  icon: {
+    paddingTop: 40,
+    paddingBottom: 20,
+    paddingLeft: 80,
+    paddingRight: 80,
   },
 });

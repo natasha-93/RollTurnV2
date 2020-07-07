@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { View, Modal, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Color } from "./models/color";
-import { TouchableHighlight } from "react-native-gesture-handler";
 
 type ColorPickerProps = {
   selected: Color;
@@ -42,14 +41,13 @@ export default function ColorPicker({
                 <Text />
               </TouchableOpacity>
             ))}
-            <View style={{ width: "100%", alignItems: "center" }}>
+            <View style={styles.button}>
               <TouchableOpacity
-                style={{ padding: 20 }}
                 onPress={() => {
                   setColorModalVisible(false);
                 }}
               >
-                <Text style={{ fontSize: 20 }}>OK</Text>
+                <Text style={styles.text}>OK</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -102,5 +100,13 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "black",
     elevation: 2,
+  },
+  button: {
+    width: "100%",
+    alignItems: "center",
+    padding: 20,
+  },
+  text: {
+    fontSize: 20,
   },
 });

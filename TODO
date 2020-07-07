@@ -3,5 +3,7 @@
 ✔️ Draggable player order
 ✔️ Add an ok button to modal and padding between colors
 ✔️ Fix scrolling issue on settings screen
+
 * Add app icon
+* Update splash screen
 * Add uuid for unique player ids

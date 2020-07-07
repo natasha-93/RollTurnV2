@@ -7,7 +7,10 @@ import {
   StyleSheet,
   TextInput,
   SafeAreaView,
+  Alert,
 } from "react-native";
+
+import DraggableFlatList from "react-native-draggable-flatlist";
 
 import ColorPicker from "../ColorPicker";
 import { Player } from "../App";
@@ -60,42 +63,38 @@ export default function SettingsTab() {
         colors={["#a8edea", "white"]}
         style={styles.linearGradient}
       >
-        <ScrollView
+        {/* <ScrollView
           style={{ flex: 1 }}
           contentInsetAdjustmentBehavior="automatic"
-        >
-          <View style={styles.playerInputs}>
-            <TextInput
-              placeholder="Add player..."
-              style={styles.input}
-              value={newPlayer.name}
-              onChangeText={(name) => setNewPlayer({ ...newPlayer, name })}
-              onSubmitEditing={() => {
-                addPlayer();
-              }}
-            />
-            <ColorPicker
-              selected={newPlayer.color}
-              onChange={(color) => {
-                setNewPlayer((newPlayer) => ({
-                  ...newPlayer,
-                  color,
-                }));
-              }}
-              options={colors}
-            />
-          </View>
-          <View style={{ backgroundColor: "transparent" }}>
-            {players.map((player, i) => (
-              <View key={i} style={styles.playerInputs}>
-                <TouchableOpacity
-                  onPress={() => {
-                    setPlayers((players) =>
-                      players.filter((player, index) => index !== i)
-                    );
-                  }}
-                >
-                  <Ionicons name="md-trash" size={30} />
+        > */}
+        <View style={styles.playerInputs}>
+          <TextInput
+            placeholder="Add player..."
+            style={styles.input}
+            value={newPlayer.name}
+            onChangeText={(name) => setNewPlayer({ ...newPlayer, name })}
+            onSubmitEditing={() => {
+              addPlayer();
+            }}
+          />
+          <ColorPicker
+            selected={newPlayer.color}
+            onChange={(color) => {
+              setNewPlayer((newPlayer) => ({
+                ...newPlayer,
+                color,
+              }));
+            }}
+            options={colors}
+          />
+        </View>
+        <View style={{ backgroundColor: "transparent" }}>
+          <DraggableFlatList
+            data={players}
+            renderItem={({ item: player, index, drag }) => (
+              <View key={index} style={styles.playerInputs}>
+                <TouchableOpacity onPressIn={drag} style={{ padding: 10 }}>
+                  <Ionicons name="md-menu" size={30} />
                 </TouchableOpacity>
 
                 <TextInput
@@ -103,7 +102,7 @@ export default function SettingsTab() {
                   value={player.name}
                   onChangeText={(name) =>
                     setPlayers((players) =>
-                      players.map((player, index) => {
+                      players.map((player, i) => {
                         if (index !== i) return player;
 
                         return {
@@ -117,11 +116,21 @@ export default function SettingsTab() {
                     addPlayer();
                   }}
                 />
+                <TouchableOpacity
+                  style={{ padding: 10 }}
+                  onPress={() => {
+                    setPlayers((players) =>
+                      players.filter((player, i) => index !== i)
+                    );
+                  }}
+                >
+                  <Ionicons name="md-trash" size={30} />
+                </TouchableOpacity>
                 <ColorPicker
                   selected={player.color}
                   onChange={(color) => {
                     setPlayers((players) =>
-                      players.map((player, index) => {
+                      players.map((player, i) => {
                         if (index !== i) return player;
 
                         return {
@@ -134,19 +143,22 @@ export default function SettingsTab() {
                   options={colors}
                 />
               </View>
-            ))}
-          </View>
-          <View style={styles.switchContainer}>
-            <Switch
-              trackColor={{ false: "#767577", true: "lightgrey" }}
-              thumbColor={settings.soundEnabled ? "green" : "#f4f3f4"}
-              ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={settings.soundEnabled}
-            />
-            <Text>{settings.soundEnabled ? "SOUND ON" : "SOUND OFF"}</Text>
-          </View>
-        </ScrollView>
+            )}
+            keyExtractor={(item, index) => `draggable-item-${item.name}`}
+            onDragEnd={({ data }) => setPlayers(data)}
+          />
+        </View>
+        <View style={styles.switchContainer}>
+          <Switch
+            trackColor={{ false: "#767577", true: "lightgrey" }}
+            thumbColor={settings.soundEnabled ? "green" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleSwitch}
+            value={settings.soundEnabled}
+          />
+          <Text>{settings.soundEnabled ? "SOUND ON" : "SOUND OFF"}</Text>
+        </View>
+        {/* </ScrollView> */}
       </LinearGradient>
     </SafeAreaView>
   );

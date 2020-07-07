@@ -35,7 +35,7 @@ export default function SettingsTab() {
     color: colors[0],
   });
 
-  // const canAddPlayer = newPlayer.name.length > 0 && players.length < 5;
+  const canAddPlayer = newPlayer.name.length > 0;
 
   function getNextColor(players: Player[]) {
     const colorIndex = players.length % colors.length;
@@ -43,7 +43,7 @@ export default function SettingsTab() {
   }
 
   function addPlayer() {
-    // if (!canAddPlayer) return;
+    if (!canAddPlayer) return;
 
     const newPlayers = [...players, newPlayer];
 
@@ -86,9 +86,9 @@ export default function SettingsTab() {
                 <TouchableOpacity
                   style={{
                     ...styles.icon,
-                    // opacity: canAddPlayer ? 1 : 0.5,
+                    opacity: canAddPlayer ? 1 : 0.5,
                   }}
-                  // disabled={!canAddPlayer}
+                  disabled={!canAddPlayer}
                   onPress={() => {
                     addPlayer();
                   }}
